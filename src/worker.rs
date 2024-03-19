@@ -348,7 +348,7 @@ impl<W: ComputeWorker> AppComputeWorker<W> {
         (self.state != WorkerState::Working) && (self.run_mode != RunMode::OneShot(false))
     }
 
-    pub(crate) fn run(mut worker: ResMut<Self>) {
+    pub fn run(mut worker: ResMut<Self>) {
         if worker.ready() {
             worker.state = WorkerState::Available;
         }
@@ -389,7 +389,7 @@ impl<W: ComputeWorker> AppComputeWorker<W> {
         }
     }
 
-    pub(crate) fn unmap_all(mut worker: ResMut<Self>) {
+    pub fn unmap_all(mut worker: ResMut<Self>) {
         for (_, staging_buffer) in &mut worker.staging_buffers {
             if staging_buffer.mapped {
                 staging_buffer.buffer.unmap();
@@ -398,7 +398,7 @@ impl<W: ComputeWorker> AppComputeWorker<W> {
         }
     }
 
-    pub(crate) fn extract_pipelines(
+    pub fn extract_pipelines(
         mut worker: ResMut<Self>,
         pipeline_cache: Res<AppPipelineCache>,
     ) {
